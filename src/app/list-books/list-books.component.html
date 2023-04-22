@@ -1,0 +1,53 @@
+<button (click)="onDeleteAll()" type="button" class="btn btn-primary my-5">Összes törlése</button>
+
+<div class="row">
+    <div *ngFor="let oszlop of oszlopok" class="col">
+        {{oszlop}}
+    </div>
+    <div class="col">Műveletek</div>
+</div>
+{{ujKonyv|json}}
+<div class="row">
+    <div *ngFor="let oszlop of oszlopok" class="col">
+        
+            <input required type="text"  class="form-control"
+            [(ngModel)]="ujKonyv[oszlop]">      
+      
+    </div>
+    <div class="col">
+        <button (click)="addBook(ujKonyv)" type="button" class="btn btn-primary">Hozzáadás</button>
+    </div>
+</div>
+
+<div *ngIf="konyvek" >
+    <div class="row my-2" *ngFor="let konyv of konyvek">
+        <div *ngFor="let oszlop of oszlopok" class="col">        
+            <input *ngIf="oszlop!='key'" required type="text"  class="form-control"
+            [(ngModel)]="konyv[oszlop]">     
+            <div *ngIf="oszlop=='key'" class="col">
+                <!-- {{konyv.key}} -->
+            </div>
+        </div>
+        <div class="col">
+            <div class="row ">
+                <div class="col-6 text-center">
+                    <button (click)="onUpdate(konyv)" type="button" class="btn btn-primary">Szerkesztés</button>
+                </div>
+                <div class="col-6 text-center">
+                    <button (click)="onDelete(konyv)" type="button" class="btn btn-primary">Törlés</button>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showError" class="card alert alert-danger" role="alert">
+    <div class="card-body">
+      <h5 class="card-title">Hiba történt</h5>
+      
+      <p class="card-text">
+        {{errorMessage}}
+      </p>
+    </div>
+  </div>
